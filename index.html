@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>★~| Bob's Official MySpace World |~★ - Bello!</title>
+  <style>
+    /* Retro 2000s Styling */
+    * {
+      box-sizing: border-box;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">🍌</text></svg>'), auto;
+    }
+
+    body {
+      background-color: #0d1b2a;
+      background-image:
+        radial-gradient(#ffe135 15%, transparent 16%),
+        radial-gradient(#0055b8 15%, transparent 16%);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+      font-family: "Comic Sans MS", "Trebuchet MS", Arial, sans-serif;
+      color: #000000;
+      margin: 0;
+      padding: 15px;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 6px double #0055b8;
+      box-shadow: 0 0 25px #ffe135, 0 0 10px #0055b8;
+      padding: 15px;
+      border-radius: 12px;
+    }
+
+    /* Retro Header */
+    header {
+      background: linear-gradient(135deg, #ffe135 0%, #ffc700 50%, #0055b8 100%);
+      border: 3px dashed #002266;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      color: #003399;
+      text-shadow: 2px 2px 0px #ffffff, 4px 4px 0px #ffe135;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .header-sub {
+      font-size: 16px;
+      color: #d00000;
+      font-weight: bold;
+      background: #ffffff;
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 15px;
+      margin-top: 5px;
+      border: 2px solid #0055b8;
+    }
+
+    /* Marquee banner */
+    .marquee-container {
+      background: #0055b8;
+      color: #ffe135;
+      font-weight: bold;
+      font-size: 16px;
+      padding: 6px;
+      border: 2px ridge #ffe135;
+      margin-bottom: 15px;
+    }
+
+    /* Layout grid */
+    .profile-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .left-col {
+      flex: 1 1 320px;
+      max-width: 380px;
+    }
+
+    .right-col {
+      flex: 2 1 450px;
+    }
+
+    /* Boxes */
+    .box {
+      background-color: #f7fa3f22;
+      border: 3px ridge #0055b8;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      padding: 12px;
+      background: #ffffff;
+      box-shadow: 3px 3px 0px #ffe135;
+    }
+
+    .box-title {
+      background: linear-gradient(90deg, #0055b8, #0088ff);
+      color: #ffffff;
+      padding: 6px 10px;
+      font-weight: bold;
+      font-size: 16px;
+      margin: -12px -12px 10px -12px;
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Bob's Profile Card */
+    .avatar-container {
+      text-align: center;
+      background: radial-gradient(circle, #fff7a1 0%, #ffe135 100%);
+      border: 3px dotted #0055b8;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .status-badge {
+      background: #e63946;
+      color: white;
+      font-weight: bold;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: inline-block;
+      font-size: 15px;
+      border: 2px solid #ffffff;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.06); }
+    }
+
+    /* Music Player */
+    .music-player {
+      background: linear-gradient(180deg, #222 0%, #111 100%);
+      color: #00ff00;
+      font-family: "Courier New", monospace;
+      padding: 12px;
+      border: 3px inset #ffe135;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .player-controls {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-retro {
+      background: linear-gradient(180deg, #ffe135 0%, #d4a000 100%);
+      border: 2px outset #ffffff;
+      color: #002266;
+      font-weight: bold;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 4px;
+    }
+
+    .btn-retro:active {
+      border-style: inset;
+    }
+
+    /* Details table */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .info-table td {
+      padding: 6px;
+      border-bottom: 1px dashed #cccccc;
+    }
+
+    .info-table td.label {
+      font-weight: bold;
+      color: #0055b8;
+      width: 40%;
+      background: #f0f7ff;
+    }
+
+    /* Top 8 Friends */
+    .top8-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+
+    .friend-card {
+      background: #f8f9fa;
+      border: 2px solid #0055b8;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    .friend-card svg, .friend-card img {
+      width: 100%;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .friend-name {
+      font-weight: bold;
+      color: #003399;
+      margin-top: 3px;
+      word-break: break-word;
+    }
+
+    /* Photo Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .gallery-item {
+      border: 2px ridge #ffe135;
+      background: #fff;
+      padding: 5px;
+      border-radius: 6px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .gallery-item caption {
+      font-size: 11px;
+      font-weight: bold;
+      color: #0055b8;
+      margin-top: 4px;
+    }
+
+    /* Guestbook / Comments */
+    .comment-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 15px;
+      background: #f0f7ff;
+      padding: 10px;
+      border: 1px dashed #0055b8;
+      border-radius: 6px;
+    }
+
+    .comment-form input, .comment-form textarea {
+      padding: 6px;
+      border: 2px solid #0055b8;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+
+    .comment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comment-item {
+      background: #fffbe6;
+      border: 2px solid #ffe135;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .comment-header {
+      font-weight: bold;
+      color: #0055b8;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #ffe135;
+      padding-bottom: 3px;
+      margin-bottom: 5px;
+    }
+
+    /* Sparkles / Glitter */
+    .glitter-text {
+      background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 3px double #0055b8;
+      font-size: 12px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <h1>★~| BOB'S MYSPACE KINGDOM |~★</h1>
+      <div class="header-sub">💛 Bannanana! Tulaliloo ti amo! 🦄</div>
+    </header>
+
+    <!-- MARQUEE -->
+    <div class="marquee-container">
+      <marquee behavior="scroll" direction="left" scrollamount="5">
+        🍌 BELLO! WELCOME TO BOB'S MYSPACE PAGE! 💛 BOB HAS TWO BIG EYES, IS POTATO-SHAPED & LOVES BANANAS, UNICORNS AND POTATOES! 🥔✨ SAMINA MINA EE EE! WAKA WAKA! 🦄🍌
+      </marquee>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="profile-grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="left-col">
+
+        <!-- AVATAR & STATUS -->
+        <div class="box">
+          <div class="box-title">
+            <span>BOB (Mimoň)</span>
+            <span>💛</span>
+          </div>
+
+          <div class="avatar-container">
+            <!-- BOB SVG DRAWING -->
+            <svg width="220" height="260" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="yellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFF066" />
+                  <stop offset="100%" stop-color="#FFC700" />
+                </linearGradient>
+                <linearGradient id="denimGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#1E50A2" />
+                  <stop offset="100%" stop-color="#0F2B5C" />
+                </linearGradient>
+                <linearGradient id="goggleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#E0E0E0" />
+                  <stop offset="50%" stop-color="#999999" />
+                  <stop offset="100%" stop-color="#444444" />
+                </linearGradient>
+              </defs>
+
+              <!-- Small Feet / Shoes -->
+              <ellipse cx="85" cy="245" rx="18" ry="10" fill="#111" />
+              <ellipse cx="135" cy="245" rx="18" ry="10" fill="#111" />
+              <!-- Small Legs -->
+              <rect x="78" y="225" width="14" height="22" fill="#0F2B5C" rx="3" />
+              <rect x="128" y="225" width="14" height="22" fill="#0F2B5C" rx="3" />
+
+              <!-- Potato Body -->
+              <rect x="40" y="30" width="140" height="200" rx="70" fill="url(#yellowGrad)" stroke="#E6B800" stroke-width="3" />
+
+              <!-- Small Arms with gloves -->
+              <!-- Left arm waving -->
+              <path d="M 42 130 Q 15 110 10 90" fill="none" stroke="#FFC700" stroke-width="12" stroke-linecap="round" />
+              <circle cx="10" cy="88" r="10" fill="#111" />
+              <!-- Right arm waving banana -->
+              <path d="M 178 130 Q 200 115 205 100" fill="none" stroke="#FFC700" stroke-width="12" stroke-linecap="round" />
+              <circle cx="205" cy="98" r="10" fill="#111" />
+
+              <!-- Banana in Hand -->
+              <path d="M 198 90 Q 215 70 230 85 Q 210 105 198 90 Z" fill="#FFE135" stroke="#D4A000" stroke-width="2" />
+              <path d="M 230 85 Q 233 80 230 78" fill="none" stroke="#5c4010" stroke-width="3" />
+
+              <!-- Denim Overalls -->
+              <path d="M 40 160 Q 40 230 110 230 Q 180 230 180 160 Z" fill="url(#denimGrad)" />
+              <rect x="65" y="135" width="90" height="35" fill="url(#denimGrad)" rx="3" />
+              <!-- Overall Straps -->
+              <line x1="50" y1="135" x2="68" y2="160" stroke="#0F2B5C" stroke-width="10" />
+              <line x1="170" y1="135" x2="152" y2="160" stroke="#0F2B5C" stroke-width="10" />
+              <!-- Buttons -->
+              <circle cx="68" cy="158" r="4" fill="#FFE135" />
+              <circle cx="152" cy="158" r="4" fill="#FFE135" />
+              <!-- Pocket with Minion 'G' Logo -->
+              <path d="M 90 145 L 130 145 L 125 170 L 95 170 Z" fill="#0F2B5C" stroke="#1E50A2" stroke-width="1.5" />
+              <circle cx="110" cy="156" r="8" fill="#111" />
+              <text x="110" y="160" font-size="10" font-weight="bold" fill="#FFE135" text-anchor="middle">G</text>
+
+              <!-- Goggle Strap -->
+              <rect x="40" y="72" width="140" height="18" fill="#111" />
+
+              <!-- BIG TWO EYES (Goggles) -->
+              <!-- Left Eye Frame -->
+              <circle cx="85" cy="80" r="28" fill="url(#goggleGrad)" stroke="#222" stroke-width="2" />
+              <circle cx="85" cy="80" r="21" fill="#FFFFFF" />
+              <!-- Left Pupil (Green/Brown Heterochromia - Bob has green/brown eyes!) -->
+              <circle cx="87" cy="80" r="10" fill="#2e7d32" />
+              <circle cx="87" cy="80" r="5" fill="#000000" />
+              <circle cx="84" cy="77" r="3" fill="#FFFFFF" />
+
+              <!-- Right Eye Frame -->
+              <circle cx="135" cy="80" r="28" fill="url(#goggleGrad)" stroke="#222" stroke-width="2" />
+              <circle cx="135" cy="80" r="21" fill="#FFFFFF" />
+              <!-- Right Pupil -->
+              <circle cx="133" cy="80" r="10" fill="#8d6e63" />
+              <circle cx="133" cy="80" r="5" fill="#000000" />
+              <circle cx="130" cy="77" r="3" fill="#FFFFFF" />
+
+              <!-- Big Happy Smile with Teeth -->
+              <path d="M 75 108 Q 110 138 145 108 Z" fill="#800000" stroke="#500000" stroke-width="2" />
+              <!-- Teeth -->
+              <path d="M 82 110 Q 110 118 138 110 Q 135 117 85 117 Z" fill="#FFFFFF" />
+              <!-- Tongue -->
+              <path d="M 95 125 Q 110 120 125 125 Q 110 135 95 125 Z" fill="#ff6b81" />
+            </svg>
+
+            <br>
+            <div style="margin-top: 10px;">
+              <span class="status-badge">Status: Single a šťastný 💕</span>
+            </div>
+          </div>
+
+          <p style="text-align: center; font-size: 14px; margin: 5px 0; font-weight: bold; color: #003399;">
+            "Bello! Me want BANANANA & UNICORN! 🦄🍌"
+          </p>
+        </div>
+
+        <!-- MYSPACE MUSIC PLAYER -->
+        <div class="box">
+          <div class="box-title">
+            <span>🎵 Bob's Retro Music Player</span>
+            <span>MP3</span>
+          </div>
+          <div class="music-player">
+            <div style="font-size: 13px; color: #00ff00; margin-bottom: 5px;">
+              ► NOW PLAYING: <br>
+              <strong>Bob & Minions - Samina Mina (Waka Waka)</strong>
+            </div>
+            <div id="player-status" style="font-size: 11px; color: #ffcc00; margin-bottom: 8px;">
+              [Stopped] Click Play for Music!
+            </div>
+            <div class="player-controls">
+              <button class="btn-retro" id="playBtn" onclick="toggleMusic()">▶ PLAY</button>
+              <button class="btn-retro" onclick="stopMusic()">◼ STOP</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOB'S DETAILS TABLE -->
+        <div class="box">
+          <div class="box-title">
+            <span>O Bobovi / Details</span>
+            <span>ℹ️</span>
+          </div>
+          <table class="info-table">
+            <tr>
+              <td class="label">Jméno:</td>
+              <td>Bob (Mimoň)</td>
+            </tr>
+            <tr>
+              <td class="label">Tvar ciała:</td>
+              <td>Brambora / Potato 🥔</td>
+            </tr>
+            <tr>
+              <td class="label">Oči:</td>
+              <td>Dvě velké různobarevné 👁️👁️</td>
+            </tr>
+            <tr>
+              <td class="label">Ruce & Nohy:</td>
+              <td>Malé a roztomilé 🖐️️</td>
+            </tr>
+            <tr>
+              <td class="label">Stav / Relationship:</td>
+              <td><strong>Single a šťastný</strong> 💖</td>
+            </tr>
+            <tr>
+              <td class="label">Oblíbené jídlo:</td>
+              <td>BANÁN! 🍌🍌🍌</td>
+            </tr>
+            <tr>
+              <td class="label">Oblíbená hračka:</td>
+              <td>Jednorožec 🦄 & Timmy (Medvídek) 🧸</td>
+            </tr>
+            <tr>
+              <td class="label">Město / Místo:</td>
+              <td>Gru's Lab / Minion Cave 🏰</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- OBRÁZKY / INTERESTS -->
+        <div class="box">
+          <div class="box-title">
+            <span>Bob's Favorite Things</span>
+            <span>✨</span>
+          </div>
+          <div style="text-align: center; font-size: 13px;">
+            <p><strong>Banány (Bananana):</strong></p>
+            <!-- SVG BANANA -->
+            <svg width="100" height="70" viewBox="0 0 100 70">
+              <path d="M 15 45 Q 50 70 85 25 Q 60 55 15 45 Z" fill="#FFE135" stroke="#D4A000" stroke-width="2"/>
+              <path d="M 85 25 Q 90 20 88 15" stroke="#5c4010" stroke-width="4" fill="none"/>
+              <circle cx="30" cy="50" r="2" fill="#d4a000" />
+              <circle cx="50" cy="52" r="2" fill="#d4a000" />
+            </svg>
+
+            <p style="margin-top: 10px;"><strong>Jednorožec (Unicorn):</strong></p>
+            <!-- SVG UNICORN -->
+            <svg width="100" height="80" viewBox="0 0 100 80">
+              <!-- Horn -->
+              <polygon points="50,5 44,30 56,30" fill="#FFD700" stroke="#FF8C00" stroke-width="1"/>
+              <!-- Head -->
+              <path d="M 30 55 Q 30 30 50 30 Q 75 30 75 55 Q 60 75 30 55 Z" fill="#FFF0F5" stroke="#FF69B4" stroke-width="2"/>
+              <!-- Mane -->
+              <path d="M 30 35 Q 15 25 25 50 Q 10 45 20 65" fill="none" stroke="#FF1493" stroke-width="5" stroke-linecap="round"/>
+              <path d="M 35 30 Q 20 15 30 40" fill="none" stroke="#00BFFF" stroke-width="4" stroke-linecap="round"/>
+              <!-- Eye -->
+              <circle cx="60" cy="45" r="4" fill="#FF1493" />
+              <circle cx="61" cy="44" r="1.5" fill="#FFF" />
+              <!-- Cheek -->
+              <circle cx="67" cy="55" r="5" fill="#FFB6C1" opacity="0.7"/>
+            </svg>
+
+            <p style="margin-top: 10px;"><strong>Brambora (Potato Body):</strong></p>
+            <!-- SVG POTATO -->
+            <svg width="100" height="60" viewBox="0 0 100 60">
+              <ellipse cx="50" cy="30" rx="42" ry="25" fill="#C39B53" stroke="#8B5A2B" stroke-width="2"/>
+              <!-- Potato eyes/spots -->
+              <circle cx="30" cy="22" r="3" fill="#8B5A2B" opacity="0.6"/>
+              <circle cx="65" cy="20" r="2.5" fill="#8B5A2B" opacity="0.6"/>
+              <circle cx="45" cy="40" r="3" fill="#8B5A2B" opacity="0.6"/>
+              <circle cx="72" cy="35" r="2" fill="#8B5A2B" opacity="0.6"/>
+              <!-- Cute smile on potato -->
+              <path d="M 42 30 Q 50 38 58 30" fill="none" stroke="#5c3a1a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-col">
+
+        <!-- BLOG / INTRO -->
+        <div class="box">
+          <div class="box-title">
+            <span>★ Bob's Minion Blog & Bio ★</span>
+            <span>📝</span>
+          </div>
+          <div style="font-size: 14px; line-height: 1.6;">
+            <p><span class="glitter-text" style="font-size: 18px;">Bello! Poopaye!</span></p>
+            <p>
+              Hala, me name <strong>BOB</strong>! Me is yellow minion shaped like a potato 🥔. Me have two big cute eyes (one green, one brown) and small arms and small legs!
+            </p>
+            <p>
+              Me status is <span style="background: #ffe135; padding: 2px 6px; font-weight: bold; border-radius: 4px;">Single a šťastný</span>! Me love life, me love my friends, and most of all...
+            </p>
+            <ul style="list-style-type: '🍌 ';">
+              <li><strong>BANANANA!</strong> (Me favorite snack ever!)</li>
+              <li><strong>Fluffy Unicorns!</strong> ("It's so fluffy I'm gonna die!") 🦄</li>
+              <li><strong>Potatoes!</strong> (Because me look like one! 🥔)</li>
+              <li><strong>Timmy!</strong> (My cute teddy bear) 🧸</li>
+            </ul>
+            <p style="background: #e6f2ff; padding: 10px; border-left: 4px solid #0055b8; font-style: italic;">
+              "Tulaliloo ti amo! Samina mina zangalewa, waka waka eh eh! Tank yu for visiting my retro MySpace page!"
+            </p>
+          </div>
+        </div>
+
+        <!-- PHOTO GALLERY -->
+        <div class="box">
+          <div class="box-title">
+            <span>Bob's Picture Gallery / Fotky</span>
+            <span>🖼️</span>
+          </div>
+          <div class="gallery">
+            <div class="gallery-item">
+              <svg width="80" height="80" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="#FFE135" stroke="#0055b8" stroke-width="2"/>
+                <circle cx="38" cy="42" r="10" fill="#FFF" stroke="#333" stroke-width="2"/>
+                <circle cx="62" cy="42" r="10" fill="#FFF" stroke="#333" stroke-width="2"/>
+                <circle cx="38" cy="42" r="4" fill="#000"/>
+                <circle cx="62" cy="42" r="4" fill="#000"/>
+                <path d="M 30 60 Q 50 80 70 60" fill="none" stroke="#800000" stroke-width="4"/>
+              </svg>
+              <div>Bob Smile 😁</div>
+            </div>
+
+            <div class="gallery-item">
+              <svg width="80" height="80" viewBox="0 0 100 100">
+                <path d="M 20 60 Q 50 90 80 30 Q 60 70 20 60 Z" fill="#FFE135" stroke="#D4A000" stroke-width="2"/>
+                <text x="50" y="30" font-size="25" text-anchor="middle">🍌</text>
+              </svg>
+              <div>Bananana 🍌</div>
+            </div>
+
+            <div class="gallery-item">
+              <svg width="80" height="80" viewBox="0 0 100 100">
+                <polygon points="50,10 42,35 58,35" fill="#FFD700"/>
+                <path d="M 25 70 Q 25 40 50 40 Q 75 40 75 70 Z" fill="#FFF0F5" stroke="#FF69B4" stroke-width="2"/>
+                <text x="50" y="65" font-size="20" text-anchor="middle">🦄</text>
+              </svg>
+              <div>Unicorn 🦄</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOP 8 FRIENDS -->
+        <div class="box">
+          <div class="box-title">
+            <span>Bob's Top 8 Friends / Nejlepší Přátelé</span>
+            <span>👥</span>
+          </div>
+          <div class="top8-grid">
+
+            <div class="friend-card">
+              <svg viewBox="0 0 60 60">
+                <rect x="15" y="10" width="30" height="40" rx="15" fill="#FFE135"/>
+                <circle cx="30" cy="25" r="8" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+                <circle cx="30" cy="25" r="3" fill="#000"/>
+                <path d="M 22 38 Q 30 45 38 38" fill="none" stroke="#000" stroke-width="1.5"/>
+              </svg>
+              <div class="friend-name">Kevin</div>
+            </div>
+
+            <div class="friend-card">
+              <svg viewBox="0 0 60 60">
+                <circle cx="30" cy="30" r="20" fill="#FFE135"/>
+                <circle cx="30" cy="25" r="10" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+                <circle cx="30" cy="25" r="4" fill="#000"/>
+                <path d="M 22 38 Q 30 44 38 38" fill="none" stroke="#000" stroke-width="1.5"/>
+              </svg>
+              <div class="friend-name">Stuart</div>
+            </div>
+
+            <div class="friend-card">
+              <svg viewBox="0 0 60 60">
+                <circle cx="30" cy="25" r="16" fill="#f5c29d"/>
+                <rect x="10" y="40" width="40" height="15" fill="#333"/>
+                <circle cx="24" cy="23" r="2" fill="#000"/>
+                <circle cx="36" cy="23" r="2" fill="#000"/>
+                <path d="M 22 32 Q 30 28 38 32" fill="none" stroke="#000" stroke-width="1.5"/>
+              </svg>
+              <div class="friend-name">Gru</div>
+            </div>
+
+            <div class="friend-card">
+              <svg viewBox="0 0 60 60">
+                <circle cx="30" cy="28" r="15" fill="#fcd7b6"/>
+                <path d="M 15 20 Q 30 5 45 20" fill="#333"/>
+                <circle cx="25" cy="26" r="2" fill="#000"/>
+                <circle cx="35" cy="26" r="2" fill="#000"/>
+                <path d="M 24 33 Q 30 38 36 33" fill="none" stroke="#ff0000" stroke-width="1.5"/>
+              </svg>
+              <div class="friend-name">Agnes</div>
+            </div>
+
+            <div class="friend-card">
+              <text x="30" y="40" font-size="32" text-anchor="middle">🦄</text>
+              <div class="friend-name">Fluffy Unicorn</div>
+            </div>
+
+            <div class="friend-card">
+              <text x="30" y="40" font-size="32" text-anchor="middle">🍌</text>
+              <div class="friend-name">Super Banana</div>
+            </div>
+
+            <div class="friend-card">
+              <text x="30" y="40" font-size="32" text-anchor="middle">👑</text>
+              <div class="friend-name">King Bob</div>
+            </div>
+
+            <div class="friend-card">
+              <text x="30" y="40" font-size="32" text-anchor="middle">🥔</text>
+              <div class="friend-name">Potato Buddy</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- GUESTBOOK / COMMENTS -->
+        <div class="box">
+          <div class="box-title">
+            <span>Bob's Guestbook / Návštěvní Kniha</span>
+            <span>💬</span>
+          </div>
+
+          <!-- Comment Input Form -->
+          <div class="comment-form">
+            <strong style="color: #0055b8;">Napiš Bobovi vzkaz! (Leave a comment)</strong>
+            <input type="text" id="authorInput" placeholder="Tvoje jméno / Your name..." />
+            <textarea id="msgInput" rows="2" placeholder="Tůj vzkaz (např. Bello! Mas rád banány?)..."></textarea>
+            <button class="btn-retro" onclick="addComment()" style="align-self: flex-start;">Odeslat vzkaz 🚀</button>
+          </div>
+
+          <!-- Comments List -->
+          <div class="comment-list" id="commentList">
+            <div class="comment-item">
+              <div class="comment-header">
+                <span>Stuart 🎸</span>
+                <span>Dnes 14:20</span>
+              </div>
+              <div>Poopaye Bob! Tulaliloo ti amo! Mám pro tebe nový banán 🍌!</div>
+            </div>
+
+            <div class="comment-item">
+              <div class="comment-header">
+                <span>Agnes 💖</span>
+                <span>Včera 18:05</span>
+              </div>
+              <div>Ahoj Bobe, tvoj jednorožec je tak roztomilý! IT'S SO FLUFFY! 🦄✨</div>
+            </div>
+
+            <div class="comment-item">
+              <div class="comment-header">
+                <span>Kevin 🕶️</span>
+                <span>12. Března</span>
+              </div>
+              <div>Bello Bob! Nezapomeň na zítřejší misit pro Grua! Bananana!</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2005-2025 Bob's Retro MySpace World | Made with 💛 & 🍌 for Bob the Minion</p>
+      <p style="font-size: 10px; color: #888;">Optimized for Internet Explorer 6.0 | 800x600 Resolution | Bello!</p>
+    </footer>
+
+  </div>
+
+  <!-- JAVASCRIPT FOR MUSIC & COMMENTS -->
+  <script>
+    // --- WEB AUDIO SYNTHESIZER FOR "SAMINA MINA (WAKA WAKA)" REFRAIN MELODY ---
+    let audioCtx = null;
+    let isPlaying = false;
+    let timeoutIds = [];
+
+    // Notes frequencies (Hz)
+    const NOTES = {
+      'C4': 261.63, 'D4': 293.66, 'E4': 329.63, 'F4': 349.23,
+      'G4': 392.00, 'A4': 440.00, 'B4': 493.88, 'C5': 523.25,
+      'D5': 587.33, 'E5': 659.25, 'F5': 698.46, 'G5': 783.99
+    };
+
+    // Melody refrain of "Samina mina zangalewa / Waka Waka"
+    // "Zamina mina eh eh, waka waka eh eh, zamina mina zangalewa, anawa ah ah"
+    const melody = [
+      // Zamina mina eh eh
+      { note: 'E5', duration: 0.3 },
+      { note: 'E5', duration: 0.3 },
+      { note: 'E5', duration: 0.3 },
+      { note: 'D5', duration: 0.3 },
+      { note: 'C5', duration: 0.5 },
+      { note: 'D5', duration: 0.5 },
+
+      // waka waka eh eh
+      { note: 'E5', duration: 0.3 },
+      { note: 'E5', duration: 0.3 },
+      { note: 'D5', duration: 0.3 },
+      { note: 'C5', duration: 0.5 },
+      { note: 'A4', duration: 0.5 },
+
+      // zamina mina zangalewa
+      { note: 'E5', duration: 0.3 },
+      { note: 'E5', duration: 0.3 },
+      { note: 'E5', duration: 0.3 },
+      { note: 'D5', duration: 0.3 },
+      { note: 'C5', duration: 0.3 },
+      { note: 'D5', duration: 0.3 },
+      { note: 'E5', duration: 0.3 },
+      { note: 'C5', duration: 0.3 },
+
+      // anawa ah ah
+      { note: 'D5', duration: 0.4 },
+      { note: 'C5', duration: 0.4 },
+      { note: 'A4', duration: 0.6 },
+      { note: 'G4', duration: 0.8 }
+    ];
+
+    function playNote(freq, duration, time) {
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      // Retro chiptune waveform
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, time);
+
+      // Envelope
+      gain.gain.setValueAtTime(0.3, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + duration - 0.05);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(time);
+      osc.stop(time + duration);
+    }
+
+    function scheduleMelody() {
+      if (!isPlaying) return;
+
+      let currentTime = audioCtx.currentTime + 0.1;
+      let totalDuration = 0;
+
+      melody.forEach(item => {
+        if (item.note && NOTES[item.note]) {
+          playNote(NOTES[item.note], item.duration, currentTime);
+        }
+        currentTime += item.duration + 0.05;
+        totalDuration += item.duration + 0.05;
+      });
+
+      // Loop melody
+      const tid = setTimeout(() => {
+        if (isPlaying) {
+          scheduleMelody();
+        }
+      }, totalDuration * 1000);
+      timeoutIds.push(tid);
+    }
+
+    function toggleMusic() {
+      if (isPlaying) {
+        stopMusic();
+        return;
+      }
+
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      } else if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      isPlaying = true;
+      document.getElementById('playBtn').innerText = '⏸ PAUSE';
+      document.getElementById('player-status').innerText = '🎶 Playing "Samina Mina" melody...';
+      document.getElementById('player-status').style.color = '#00ff00';
+
+      scheduleMelody();
+    }
+
+    function stopMusic() {
+      isPlaying = false;
+      timeoutIds.forEach(id => clearTimeout(id));
+      timeoutIds = [];
+      document.getElementById('playBtn').innerText = '▶ PLAY';
+      document.getElementById('player-status').innerText = '[Stopped] Click Play for Music!';
+      document.getElementById('player-status').style.color = '#ffcc00';
+    }
+
+    // --- GUESTBOOK / COMMENT INTERACTION ---
+    function addComment() {
+      const authorInput = document.getElementById('authorInput');
+      const msgInput = document.getElementById('msgInput');
+
+      const author = authorInput.value.trim() || 'Anonymní Mimoň';
+      const msg = msgInput.value.trim();
+
+      if (!msg) {
+        alert('Prosím napiš nějaký vzkaz pro Boba!');
+        return;
+      }
+
+      const commentList = document.getElementById('commentList');
+      const newComment = document.createElement('div');
+      newComment.className = 'comment-item';
+      newComment.style.border = '2px solid #0055b8';
+      newComment.style.background = '#e6f2ff';
+
+      const now = new Date();
+      const timeStr = 'Právě teď (' + now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0') + ')';
+
+      newComment.innerHTML = `
+        <div class="comment-header">
+          <span>${escapeHtml(author)} ✨</span>
+          <span>${timeStr}</span>
+        </div>
+        <div>${escapeHtml(msg)}</div>
+      `;
+
+      commentList.prepend(newComment);
+
+      authorInput.value = '';
+      msgInput.value = '';
+
+      alert('Tůj vzkaz byl úspěšně přidán do Bobovy návštěvní knihy! Bello!');
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>

@@ -360,6 +360,31 @@
       font-size: 12px;
       color: #444;
     }
+
+    /* Unicorn Trail FX */
+    .unicorn-trail {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      font-size: 20px;
+      user-select: none;
+      animation: unicornFloat 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes unicornFloat {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+      50% {
+        opacity: 0.8;
+        transform: translate(-50%, -80%) scale(1.3) rotate(15deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -120%) scale(0.5) rotate(-15deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -502,11 +527,14 @@
           </div>
           <div class="music-player">
             <div style="font-size: 13px; color: #00ff66; margin-bottom: 6px;">
-              ► NOW PLAYING (SOFT): <br>
-              <strong>"Samina Mina (Waka Waka)" Refrain Melody</strong>
+              ► NOW PLAYING: <br>
+              <strong>Shakira - Waka Waka (This Time for Africa) ⚽💃</strong>
+            </div>
+            <div id="ytContainer" style="margin: 8px 0; border: 2px solid #ffe135; border-radius: 6px; overflow: hidden; background: #000; position: relative; padding-bottom: 56.25%; height: 0;">
+              <iframe id="ytPlayer" style="position: absolute; top:0; left:0; width:100%; height:100%;" src="https://www.youtube.com/embed/CAESYwHrOzA?enablejsapi=1&autoplay=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div id="player-status" style="font-size: 11px; color: #ffe135; margin-bottom: 8px;">
-              [Stopped] Click Play for Soft Music & Loud Bello!
+              [Stopped] Click Play for Shakira Waka Waka & Loud Bello!
             </div>
             <div class="player-controls">
               <button class="btn-retro" id="playBtn" onclick="toggleMusic()">▶ PLAY MUSIC</button>
@@ -889,54 +917,57 @@
       }
     }
 
-    // LOUD "BELLO!" SYNTHESIS & SPEECH
+    // CLEAR & CHEERFUL MINION "BELLO!" SYNTHESIS & SPEECH
     function sayBelloLoud() {
       initAudio();
 
-      // 1. High-pitched LOUD Synth shout "BEL-LO!"
+      // 1. High-pitched Melodic Minion Synth Chime "BEL-LO!"
       if (audioCtx) {
         const now = audioCtx.currentTime;
 
-        // "BEL-"
+        // Syllable 1: "BEL-" (Crisp sine + triangle blend)
         const osc1 = audioCtx.createOscillator();
         const gain1 = audioCtx.createGain();
-        osc1.type = 'sawtooth';
-        osc1.frequency.setValueAtTime(620, now);
-        osc1.frequency.exponentialRampToValueAtTime(750, now + 0.18);
-        gain1.gain.setValueAtTime(0.8, now); // LOUD gain
-        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.22);
+        osc1.type = 'triangle';
+        osc1.frequency.setValueAtTime(523.25, now); // C5
+        osc1.frequency.exponentialRampToValueAtTime(659.25, now + 0.15); // E5
+        gain1.gain.setValueAtTime(0.5, now);
+        gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.18);
         osc1.connect(gain1);
         gain1.connect(audioCtx.destination);
         osc1.start(now);
-        osc1.stop(now + 0.22);
+        osc1.stop(now + 0.18);
 
-        // "-LO!"
+        // Syllable 2: "-LO!" (Happy high bounce)
         const osc2 = audioCtx.createOscillator();
         const gain2 = audioCtx.createGain();
-        osc2.type = 'sawtooth';
-        osc2.frequency.setValueAtTime(880, now + 0.2);
-        osc2.frequency.exponentialRampToValueAtTime(1100, now + 0.45);
-        gain2.gain.setValueAtTime(0.9, now + 0.2); // LOUD gain
-        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(783.99, now + 0.16); // G5
+        osc2.frequency.exponentialRampToValueAtTime(1046.50, now + 0.4); // C6 cheerful bounce
+        gain2.gain.setValueAtTime(0.6, now + 0.16);
+        gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
         osc2.connect(gain2);
         gain2.connect(audioCtx.destination);
-        osc2.start(now + 0.2);
-        osc2.stop(now + 0.5);
+        osc2.start(now + 0.16);
+        osc2.stop(now + 0.45);
       }
 
-      // 2. High-pitched Minion voice Speech Synthesis
+      // 2. Clear, cheerful Minion voice Speech Synthesis ("Bello!")
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const msg = new SpeechSynthesisUtterance('BELLO!');
-        msg.pitch = 1.9; // Very high pitch minion voice
-        msg.rate = 1.4;  // Fast enthusiastic
-        msg.volume = 1.0; // Max volume
+        const msg = new SpeechSynthesisUtterance('Bello!');
+        msg.lang = 'it-IT'; // Italian pronunciation gives a crisp, natural "Bel-lo!" sound
+        msg.pitch = 1.7;    // Cheerful, high minion pitch without distortion
+        msg.rate = 1.15;    // Expressive and clear tempo
+        msg.volume = 1.0;
         window.speechSynthesis.speak(msg);
       }
     }
 
     function toggleMusic() {
       initAudio();
+
+      const iframe = document.getElementById('ytPlayer');
 
       if (isPlaying) {
         stopMusic();
@@ -945,21 +976,32 @@
 
       isPlaying = true;
       document.getElementById('playBtn').innerText = '⏸ PAUSE';
-      document.getElementById('player-status').innerText = '🎶 Playing soft "Samina Mina" melody...';
+      document.getElementById('player-status').innerText = '🎶 Playing Shakira - Waka Waka!';
       document.getElementById('player-status').style.color = '#00ff66';
 
       // Shout loud BELLO on music start!
       sayBelloLoud();
 
+      // Play synth melody as guaranteed rich audio background while video/audio plays
       scheduleMelody();
+
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      }
     }
 
     function stopMusic() {
       isPlaying = false;
       timeoutIds.forEach(id => clearTimeout(id));
       timeoutIds = [];
+
+      const iframe = document.getElementById('ytPlayer');
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      }
+
       document.getElementById('playBtn').innerText = '▶ PLAY MUSIC';
-      document.getElementById('player-status').innerText = '[Stopped] Click Play for Soft Music & Loud Bello!';
+      document.getElementById('player-status').innerText = '[Stopped] Click Play for Shakira Waka Waka & Loud Bello!';
       document.getElementById('player-status').style.color = '#ffe135';
     }
 
@@ -1010,6 +1052,37 @@
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
     }
+
+    // --- UNICORN & SPARKLE MOUSE TRAIL EFFECT ---
+    let lastTrailTime = 0;
+    const trailSymbols = ['🦄', '🦄', '✨', '💖', '🦄', '⭐'];
+
+    window.addEventListener('mousemove', (e) => {
+      const now = Date.now();
+      if (now - lastTrailTime < 45) return; // limit frequency to ~22fps
+      lastTrailTime = now;
+
+      const el = document.createElement('div');
+      el.className = 'unicorn-trail';
+
+      // Randomly pick symbol (mostly unicorns, occasionally sparkles)
+      const symbol = trailSymbols[Math.floor(Math.random() * trailSymbols.length)];
+      el.innerText = symbol;
+
+      // Position offset slightly around cursor
+      const offsetX = (Math.random() - 0.5) * 10;
+      const offsetY = (Math.random() - 0.5) * 10;
+      el.style.left = (e.clientX + offsetX) + 'px';
+      el.style.top = (e.clientY + offsetY) + 'px';
+
+      document.body.appendChild(el);
+
+      setTimeout(() => {
+        if (el && el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
+      }, 800);
+    });
 
     // Increment retro counter on load
     window.addEventListener('DOMContentLoaded', () => {
